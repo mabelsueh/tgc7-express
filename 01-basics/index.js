@@ -1,9 +1,21 @@
 const express = require('express');
+const hbs = require('hbs');
+const wax = require('wax-on');
 let app = express();
+
+// 1B SETUP HBS
+app.set('view engine', 'hbs');
+
+// 1C. SETUP STATIC FILES
+app.use(express.static('public'));
+
+// 1D. SETUP TEMPLATE INHERITANCE
+wax.on(hbs.handlebars);
+wax.setLayoutPath('./views/layouts');
 
 // add routes here
 app.get('/', (req,res)=>{
-    res.send("<h1>Hello World</h1>")
+    res.render('index')
 })
 
 app.get('/about', (req,res)=>{
@@ -16,7 +28,9 @@ app.get('/contact-us', (req,res)=>{
 
 app.get('/greet/:name', (req, res)=>{
     let name = req.params.name;
-    res.send(`<h1>Hello ${name}</h1>`)
+    res.render('hello', {
+        name
+    })
 })
 
 app.listen(3000, ()=>{
