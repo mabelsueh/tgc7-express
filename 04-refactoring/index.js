@@ -1,8 +1,8 @@
 const express = require("express");
-const hbs = require("hbs");
-const wax = require("wax-on");
 const MongoUtil = require("./MongoUtil.js");
 const ObjectId = require("mongodb").ObjectId;
+const setupExpress = require("./setupExpress");
+const setupHBS = require("./setupHandlebars");
 
 // read in the .env file
 require("dotenv").config();
@@ -12,27 +12,8 @@ const foodRoutes = require("./routes/food");
 async function main() {
   let app = express();
 
-  // 1B SETUP HBS
-  app.set("view engine", "hbs");
-
-  // 1C. SETUP STATIC FILES
-  app.use(express.static("public"));
-
-  // 1D. SETUP TEMPLATE INHERITANCE
-  wax.on(hbs.handlebars);
-  wax.setLayoutPath("./views/layouts");
-
-  // 1E. Setup forms
-  app.use(
-    express.urlencoded({
-      extended: false,
-    })
-  );
-
-  // 1F. Setup handlebar helpers
-  require("handlebars-helpers")({
-    handlebars: hbs.handlebars,
-  });
+  setupExpress(app);
+  setupHBS();
 
   await MongoUtil.connect(process.env.MONGO_URL, "foodtracker");
 
