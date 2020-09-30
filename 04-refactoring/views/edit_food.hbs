@@ -1,0 +1,32 @@
+{{#extends "base"}}
+
+{{#block "content"}}
+<form class="form" method="POST">
+    <div>
+        <label class="form-label">Food Name</label>
+        <input type="input" name="foodName" class="form-control" value="{{foodRecord.foodName}}">
+    </div>
+    <div>
+        <label class='form-label'>Calories</label>
+        <input type="input" name="calories" class="form-control" value="{{foodRecord.calories}}">
+    </div>
+    <div>
+        <label class="form-label">Tags</label>
+        <div class="form-check form-inline">
+            <input type="checkbox" class="form-check-input" name="tags" value="low-carb"
+            {{#inArray foodRecord.tags 'low-carb'}} checked {{/inArray}}
+            >Low Carb
+            <input type="checkbox" class="form-check-input ml-3" name="tags" value="vegan"
+            {{#inArray foodRecord.tags 'vegan'}} checked {{/inArray}}
+            >Vegan
+            <input type="checkbox" class="form-check-input ml-3" name="tags" value="high-fibre"
+            {{#inArray foodRecord.tags 'high-fibre'}} checked {{/inArray}}
+            >High fibre
+        </div>
+    </div>
+    <input type="submit" class="btn btn-primary"/>
+</form>
+
+{{/block}}
+
+{{/extends}}
