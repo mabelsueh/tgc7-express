@@ -1,0 +1,15 @@
+{{#extends 'base'}}
+
+    {{#block 'content'}}
+
+    <h1>Food Records</h1>
+
+        {{#each allFood}}
+            <li>{{this.foodName}} ({{this.calories}}) -- {{this.tags}}
+                <a href="/food/{{this._id}}/edit" class="btn btn-primary btn-sm">Edit</a>
+            </li>
+        {{/each}}
+
+    {{/block}}
+
+{{/extends}}

@@ -16,6 +16,8 @@ function setupExpressApp(app) {
       extended: false,
     })
   );
+ 
+  app.use(express.json());
 
 }
 

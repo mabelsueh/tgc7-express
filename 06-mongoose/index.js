@@ -13,6 +13,8 @@ async function main() {
   setupHBS();
 
   await connectDb(process.env.MONGO_URL, 'cico2');
+
+  app.use('/food', require('./routes/food'));
   
   app.listen(3000, () => {
     console.log("Server has started");
