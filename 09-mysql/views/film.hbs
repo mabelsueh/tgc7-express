@@ -1,0 +1,25 @@
+{{#extends "base"}}
+  {{#block "content"}}
+  <h1>Movies <a href="/films/create" class="btn btn-primary">Add</a></h1>
+  <div class="d-flex flex-wrap justify-content-around">
+    {{#each films}}
+    <div class="card mt-3 mb-3" style="width: 18rem;">
+      <div class="card-body">
+        <h4 class="card-title">
+          {{this.title}}
+        </h4>
+        <h5>Release year: {{this.release_year}}</h5>
+        <h5>Length: {{this.duration}}</h5>
+        <h5>Rating: {{this.rating}}</h5>
+        <p class="card-text">
+         {{this.description}}
+        </p>
+        <a href="#" class="btn btn-primary">
+          Edit
+        </a>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{/block}}
+{{/extends}}

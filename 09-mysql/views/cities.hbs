@@ -1,0 +1,39 @@
+{{#extends 'base'}}
+
+{{#block 'content'}}
+<h1>Cities</h1>
+<a href="/cities/create" class="btn btn-primary mb-3">New City</a>
+<table class="table">
+    <thead>
+        <tr>
+            <td>City ID</td>
+            <td>City</td>
+            <td>Country</td>
+            <td>Last Update</td>            
+        </tr>
+    </thead>
+    {{#each cities}}
+    <tr>
+        <td>
+            {{this.city_id}}
+        </td>
+        <td>
+            {{this.city}}
+        </td>
+
+        <td>
+            {{this.country}}
+        </td>
+        <td>
+            {{this.last_update}}
+        </td>
+        <td>
+            <a href="/cities/{{this.city_id}}/edit" class="btn btn-primary btn-sm">Edit</a>
+        </td>
+    </tr>
+    {{/each}}
+</table>
+
+{{/block}}
+
+{{/extends}}
