@@ -1,0 +1,29 @@
+{{#extends 'base'}}
+
+{{#block 'content'}}
+<a href="/pets/create" class="btn btn-primary">Add New Pet</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th></th>
+        </tr>
+    </thead>
+    {{#each all_pets}}
+    <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.category.name}}</td>
+        <td>
+            <a href="/pet/{{this.id}}/update" class="btn btn-primary btn-sm">Edit</a>
+            <a href="/pet/{{this.id}}/delete" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+    </tr>
+    {{/each}}
+</table>
+
+{{/block}}
+
+{{/extends}}

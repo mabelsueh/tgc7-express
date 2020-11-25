@@ -1,0 +1,18 @@
+{{#extends 'base'}}
+
+{{#block 'content'}}
+    <h1>Editing {{pet.name}}</h1>
+    <form method="POST">
+        <div>
+            <label class="form-label">Name</label>
+            <input type='text' class="form-control" name="petName" placeholder="Pet name" value="{{pet.name}}"/>
+        </div>
+        <div>
+            <label class="form-label">Category</label>
+            <input type='text' class="form-control" name="category" placeholder="Pet category" value="{{pet.category.name}}"/> 
+        </div>
+        <input type="submit" value="Update"/>
+    </form>
+{{/block}}
+
+{{/extends}}
