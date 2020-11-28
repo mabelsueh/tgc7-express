@@ -9,12 +9,14 @@ app.use(express.static("public"));
 wax.on(hbs.handlebars);
 wax.setLayoutPath("./views/layouts");
 
+// this is the form enabler
 app.use(express.urlencoded({ extended: false }));
 
 require("handlebars-helpers")({
   handlebars: hbs.handlebars,
 });
 
+// creating the mysql connection (pls check if its mysql2)
 async function run() {
   const connection = await mysql.createConnection({
     host: "localhost",
@@ -22,6 +24,7 @@ async function run() {
     database: "sakila",
   });
 
+  // create the routes here
   app.get("/", async (req, res) => {
     let [actors] = await connection.execute("SELECT * from `actor`");
     res.render("index.hbs", {
@@ -71,6 +74,8 @@ async function run() {
     });
   });
 
+  // to create, need a get route + a post route as per express
+  // async as the .execute function is an async function
   app.get("/cities/create", async (req, res) => {
     let [rows] = await connection.execute("select * from country");
     res.render("create_city", {
@@ -80,29 +85,38 @@ async function run() {
 
   app.post("/cities/create", async (req, res) => {
     await connection.execute(
-
+      // (?,?) represents placeholder for SQL queries, below 2 lines = prepared statement
+      // dont use ${},${} in place of ?,? as it is not secure
       `insert into city (city, country_id) values(?,?)`,
+      // take note its in array and had req. as it is a request from client to add values
       [req.body.city, req.body.country_id]
     );
+    // need to redirect to db viewpage to see if the new entry had been added in
     res.redirect("/cities");
   });
 
+  // : is placeholder for url to specify edit params, /edit so we know visually that this page is the edit page
   app.get("/cities/:city_id/edit", async (req, res) => {
+      // always returns in array even if there is only one value
     let [
       rows,
+      // where id = ? returns placeholder (which is the :<>)
     ] = await connection.execute("select * from city where city_id = ?", 
+    // therefore here also need array brackets
     [
       req.params.city_id,
     ]);
 
     let [countries] = await connection.execute("select * from country");
+    // and here also return in array
     let city = rows[0];
     res.render("edit_city", {
       city: city,
       countries: countries,
     });
   });
-  
+  // then need to post back edited stuff and redirect so user can see updated post just like create
+
   app.get("/films", async (req, res) => {
     let [films] = await connection.execute("select * from film");
     res.render("film", {

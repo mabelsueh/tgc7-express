@@ -1,0 +1,56 @@
+{{#extends 'base'}}
+
+{{#block 'content'}}
+<h1>Add New Film</h1>
+<form method="POST">
+    <div>
+        <label class="form-label">Title</label>
+        <input type="text" class="form-control" name="title"/>
+    </div>
+    <div>
+        <label class="form-label">Description</label>
+        <textarea class="form-control" name="description"></textarea>
+    </div>
+    <div>
+        <label class="form-label">Language</label>
+        <select name="language_id" class="form-control">
+            {{#each languages}}
+            <option value="{{this.language_id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div>
+        <label class="form-label">Length</label>
+        <input type="text" name="length" class="form-control"/>
+    </div>
+    <div>
+        <label class="form-label">Replacement Cost</label>
+        <input type="text" name="replacement_cost" class="form-control"/>
+    </div>
+    <div>
+        <label class="form-label">Actors</label>
+        <select multiple class="form-control" id="actors" name="actors">
+            {{#each actors}}
+            <option value="{{this.actor_id}}">{{this.first_name}} {{this.last_name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <input type="submit" class="btn btn-primary mt-2" value="Add Film"/>
+</form>
+
+{{/block}}
+
+{{#block 'styles'}}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+{{/block}}
+
+{{#block 'scripts'}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#actors').select2();
+});
+</script>
+{{/block}}
+
+{{/extends}}
